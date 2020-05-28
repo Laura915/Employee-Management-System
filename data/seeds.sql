@@ -15,17 +15,23 @@ VALUES
 ("lawyer", 50000, 4);
 
 -- Eployee values
-INSERT INTO employee (first_name,last_name,role_id,manager_id)
+INSERT INTO employee (first_name,last_name,role_id)
 VALUES 
-("Ana", "cruz"),
-("marisol", "lopez"),
-("maria", "martinez"),
-("juana", "paulino");
+("Ana", "cruz",1),
+("marisol", "lopez",3),
+("maria", "martinez",2),
+("juana", "paulino",5);
 
+-- Display all departments 
 SELECT * FROM department;
-SELECT * FROM role;
 
--- All Roles left join
-SELECT role.id, title,name salary 
+-- Display all Roles 
+SELECT role.id, role.title as job_title ,department.name as department, salary 
 FROM department
 INNER JOIN role ON role.department_id=department.id;
+
+-- Display all employees
+SELECT employee.id, employee.first_name,employee.last_name,role.title as job_title,department.name as department, role.salary
+FROM department
+INNER JOIN role ON role.department_id=department.id
+INNER JOIN employee ON employee.role_id=role.id;
