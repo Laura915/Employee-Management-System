@@ -35,3 +35,8 @@ SELECT employee.id, employee.first_name,employee.last_name,role.title as job_tit
 FROM department
 INNER JOIN role ON role.department_id=department.id
 INNER JOIN employee ON employee.role_id=role.id;
+
+-- Update employee roles
+UPDATE role
+SET title= "Sales Associate"
+WHERE title ="sales person";
