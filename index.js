@@ -24,14 +24,25 @@ function start() {
       type: "list",
       name: "main_questions",
       message: "What would you like to do?",
-      choices: ["View All Departments","View All Roles","View All Employees"]
+      choices: ["View All Departments", "View All Roles", "View All Employees"]
     })
-    .then(ans=> {
-     //switch statement that calls correct function 
+    .then(ans => {
+      //switch statement that calls correct function 
       switch (ans.main_questions) {
 
         case "View All Departments":
-          viewDepts();
+          const viewDeptQuery = "SELECT id, department.name as department FROM department;";
+          views(viewDeptQuery);
+          break;
+
+        case "View All Roles":
+          const viewroleQuery = "SELECT role.id, role.title as job_title ,department.name as department, salary FROM department INNER JOIN role ON role.department_id=department.id;";
+          views(viewroleQuery);
+          break;
+
+        case "View All Employees":
+          const viewEmpQuery= "SELECT employee.id, employee.first_name,employee.last_name,role.title as job_title,department.name as department, role.salary FROM department INNER JOIN role ON role.department_id=department.id INNER JOIN employee ON employee.role_id=role.id;"
+          views(viewEmpQuery);
           break;
 
         default:
@@ -41,12 +52,9 @@ function start() {
 
     });
 }
-
-//view All Department function
-function viewDepts() {
-  const query="SELECT id, department.name as department FROM department;";
- 
-  connection.query(query, function(err, res) {
+//views function 
+function views(query) {
+  connection.query(query, function (err, res) {
     if (err) throw err;
     // Log all results of the SELECT statement
     console.table(res);
