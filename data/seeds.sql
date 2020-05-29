@@ -23,7 +23,7 @@ VALUES
 ("juana", "paulino",5);
 
 -- Display all departments 
-SELECT * FROM department;
+SELECT id, department.name as department FROM department;
 
 -- Display all Roles 
 SELECT role.id, role.title as job_title ,department.name as department, salary 
