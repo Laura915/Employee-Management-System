@@ -1,6 +1,7 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 const cTable = require('console.table');
+const addDept=require("./lib/addDept");
 
 // sql connection
 var connection = mysql.createConnection({
@@ -46,7 +47,7 @@ function startMainQues() {
           break;
 
         case "Add Department":
-          addDept();
+          addDept(connection, startMainQues);
           break;
 
         default:
@@ -66,21 +67,4 @@ function views(query) {
   });
 }
 
-//Add Dept function
-function addDept() {
-  inquirer
-    .prompt({
-      type: "input",
-      name: "new_dept",
-      message: "What is the name of the new department?"
-    })
-    .then(ans => {
-      connection.query("INSERT INTO department SET ?", { name: ans.new_dept }, function (err, res) {
-        if (err) throw err;
-        // Log succesfully added new dept 
-        console.log(`Added ${ans.new_dept} to the database`);
-        startMainQues();
-      });
-    })
-}
 
