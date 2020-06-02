@@ -1,7 +1,8 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
 const cTable = require('console.table');
-const addDept=require("./lib/addDept");
+const addDept = require("./lib/addDept");
+const addRole = require("./lib/addRole");
 
 // sql connection
 var connection = mysql.createConnection({
@@ -48,6 +49,10 @@ function startMainQues() {
 
         case "Add Department":
           addDept(connection, startMainQues);
+          break;
+
+        case "Add Role":
+          addRole(connection, startMainQues);
           break;
 
         default:
