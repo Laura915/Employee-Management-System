@@ -26,7 +26,7 @@ function startMainQues() {
       type: "list",
       name: "main_questions",
       message: "What would you like to do?",
-      choices: ["View All Departments", "View All Roles", "View All Employees", "Add Department", "Add Role"]
+      choices: ["View All Departments", "View All Roles", "View All Employees", "Add Department", "Add Role", "Add Employee", "Exit"]
     })
     .then(ans => {
       //switch statement that calls correct function 
@@ -55,7 +55,7 @@ function startMainQues() {
           addRole(connection, startMainQues);
           break;
 
-        default:
+        case "Exit":
           connection.end();
           break;
       }
